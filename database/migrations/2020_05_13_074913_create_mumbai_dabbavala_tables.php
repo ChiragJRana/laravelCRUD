@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateMumbaiDabbavalaTables extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,9 +14,71 @@ class CreateMumbaiDabbavalaTables extends Migration
      */
     public function up()
     {
-        Schema::create('', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        
+
+        /*
+        |--------------------------------------------------------------------------
+        | Customer Details  
+        |--------------------------------------------------------------------------
+        */
+        Schema::connection('mysql')->create('customer_master', function (Blueprint $table) {
+            $table->increments('id',true)
+                    ->unsigned();
+            $table->string('l_name',20);
+            $table->string('f_name',20);
+            $table->string('m_name',20);
+            $table->string('email')
+                    ->unique();
+            $table->integer('age')
+                    ->unsigned();
+            $table->string('occupation',99);
+            $table->string('marital_status',10);
+            $table->string('gender',10);
+            $table->string('phone_number',10);
+            $table->boolean('Present_member');
+            $table->engine = 'InnoDB';
+        });
+        /*
+        |--------------------------------------------------------------------------
+        | Tiffinvala Details  
+        |--------------------------------------------------------------------------
+        */
+        Schema::connection('mysql')->create('tiffinvala_master', function (Blueprint $table) {
+            $table->increments('id',true)
+                    ->unsigned();
+            $table->string('l_name',20);
+            $table->string('f_name',20);
+            $table->string('m_name',20);
+            $table->integer('age')->unsigned();
+            $table->string('gender',10);
+            $table->string('marital_status',10);
+            $table->string('phone_number',10);
+            $table->float('salary_def',10,2)
+                    ->unsigned();
+            $table->integer('Working_hour_per_day');
+            $table->engine = 'InnoDB';
+        });
+        
+        /*
+        |--------------------------------------------------------------------------
+        | Service Details  
+        |--------------------------------------------------------------------------
+        */
+
+        Schema::connection('mysql')->create('services', function (Blueprint $table) {
+            $table->increments('service_id',true)
+                    ->unsigned();
+            $table->integer('customer_id')->unsigned();
+            $table->integer('tiffinvala_id')->unsigned();
+            $table->boolean('valid_dest');
+            $table->boolean('working');
+            $table->integer('service_val');
+            $table->engine = 'InnoDB';
+        });
+
+        Schema::connection('mysql')->table('services', function (Blueprint $table){
+            $table->foreign('customer_id')->references('id')->on('customer_master');
+            $table->foreign('tiffinvala_id')->references('id')->on('tiffinvala_master');    
         });
     }
 
@@ -24,8 +87,11 @@ class CreateMumbaiDabbavalaTables extends Migration
      *
      * @return void
      */
+
     public function down()
     {
-        Schema::dropIfExists('mumbai_dabbavala_tables');
+        Schema::connection('mysql')->dropIfExists('services');
+        Schema::connection('mysql')->dropIfExists('customer_master');
+        Schema::connection('mysql')->dropIfExists('tiffinvala_master');
     }
 }
