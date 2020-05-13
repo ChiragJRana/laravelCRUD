@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TiffinvalaModel extends Model
 {
     protected $table = 'tiffinvala_master';
-    public $timestamp = false;
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'l_name',

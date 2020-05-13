@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class CustomerModel extends Model
 {
     protected $table = 'customer_master';
-    public $timestamp = false;
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'l_name',

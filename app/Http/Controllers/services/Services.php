@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Customers;
+namespace App\Http\Controllers\services;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\CustomerModel;
-use Validator;
 
-class Customer extends Controller
+class Services extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class Customer extends Controller
      */
     public function index()
     {
-        return response()->json(CustomerModel::get(),200);
+        //
     }
 
     /**
@@ -37,19 +35,7 @@ class Customer extends Controller
      */
     public function store(Request $request)
     {
-        $rules=[
-            'f_name'=> 'required|min:3',
-            'l_name'=> 'required|min:3',
-            'm_name'=> 'required|min:3',
-            'email' => 'required',
-            'phone_number' => 'required'
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if($validator->fails()){
-            return response()->json($validator->errors(),400);
-        }
-        $customer = CustomerModel::create($request->all());
-        return response()->json($customer, 201);
+        //
     }
 
     /**
@@ -60,11 +46,7 @@ class Customer extends Controller
      */
     public function show($id)
     {
-        $customer =  CustomerModel::find($id);
-        if(is_null($customer)){
-            return response()->json(['message' => 'Record Not Found'], 404);
-        }
-        return response()->json($customer, 200);
+        //
     }
 
     /**
@@ -87,12 +69,7 @@ class Customer extends Controller
      */
     public function update(Request $request, $id)
     {
-        $customer = CustomerModel::find($id);
-        if(is_null($customer)){
-            return response()->json(['message' => 'Record Not Found'], 404);
-        }
-        $customer->update($request->all());
-        return response()->json($customer,200);
+        //
     }
 
     /**
@@ -103,11 +80,6 @@ class Customer extends Controller
      */
     public function destroy($id)
     {
-        $customer = CustomerModel::find($id);
-        if(is_null($customer)){
-            return response()->json(['message' => 'Record Not Found'], 404);
-        }
-         $customer->delete();
-        return response()->json(null, 204);
+        //
     }
 }
