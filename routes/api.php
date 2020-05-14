@@ -26,15 +26,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::post('customer', 'Customers\CustomerController@customerSave');
 // Route::put('customer/{id}','Customers\CustomerController@customerUpdate');
 // Route::delete('customer/{id}','Customers\CustomerController@customerDelete');
-// Route::apiResource('customer', 'Customers\Customer');
+Route::apiResource('customer', 'Customers\Customer');
 
 // ========================================================================================
 // Routes for TiffinvalaData
 // ========================================================================================
 
-Route::get('tiffinman', 'Tiffinvala\TiffinvalaController@tiffinman');
-Route::get('tiffinman/{id}', 'Tiffinvala\TiffinvalaController@tiffinmanById');
-Route::post('tiffinman', 'Tiffinvala\TiffinvalaController@tiffinmanSave');
-Route::put('tiffinman/{id}','Tiffinvala\TiffinvalaController@tiffinmanUpdate');
-Route::delete('tiffinman/{id}','Tiffinvala\TiffinvalaController@tiffinmanDelete');
+// Route::get('tiffinman', 'Tiffinvala\TiffinvalaController@tiffinman');
+// Route::get('tiffinman/{id}', 'Tiffinvala\TiffinvalaController@tiffinmanById');
+// Route::post('tiffinman', 'Tiffinvala\TiffinvalaController@tiffinmanSave');
+// Route::put('tiffinman/{id}','Tiffinvala\TiffinvalaController@tiffinmanUpdate');
+// Route::delete('tiffinman/{id}','Tiffinvala\TiffinvalaController@tiffinmanDelete');
 Route::apiResource('tiffinman', 'Tiffinvala\Tiffinvala');
+
+// ========================================================================================
+// Routes for Service
+// ========================================================================================
+
+// Route::get('services', 'services\ServicesController@services');
+// Route::get('services/{service_id}', 'services\ServicesController@servicesById');
+// Route::post('services', 'services\ServicesController@servicesSave');
+// Route::put('services/{id}','services\ServicesController@servicesUpdate');
+// Route::delete('services/{id}','services\ServicesController@servicesDelete');
+Route::apiResource('services', 'services\Services');

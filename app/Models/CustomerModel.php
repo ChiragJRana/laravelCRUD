@@ -18,6 +18,8 @@ class CustomerModel extends Model
         'occupation',
         'marital_status',
         'gender',
+        'address',
+        'pincode',
         'phone_number',
         'Present_member'
     ];

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Tiffinvala;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\TiffinvalaModel;
+use Validator;
 class Tiffinvala extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class Tiffinvala extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(TiffinvalaModel::get(),200);
     }
 
     /**
@@ -35,7 +36,18 @@ class Tiffinvala extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules=[
+            'f_name'=> 'required|min:3',
+            'l_name'=> 'required|min:3',
+            'm_name'=> 'required|min:3',
+            'phone_number' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+        $tiffinman = TiffinvalaModel::create($request->all());
+        return response()->json($tiffinman, 201);
     }
 
     /**
@@ -46,7 +58,11 @@ class Tiffinvala extends Controller
      */
     public function show($id)
     {
-        //
+        $tiffinman =  TiffinvalaModel::find($id);
+        if(is_null($tiffinman)){
+            return response()->json(['message' => 'Record Not Found'], 404);
+        }
+        return response()->json($tiffinman, 200);
     }
 
     /**
@@ -69,7 +85,12 @@ class Tiffinvala extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tiffinman = TiffinvalaModel::find($id);
+        if(is_null($tiffinman)){
+            return response()->json(['message' => 'Record Not Found'], 404);
+        }
+        $tiffinman->update($request->all());
+        return response()->json($tiffinman,200);
     }
 
     /**
@@ -80,6 +101,11 @@ class Tiffinvala extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tiffinman = TiffinvalaModel::find($id);
+        if(is_null($tiffinman)){
+            return response()->json(['message' => 'Record Not Found'], 404);
+        }
+         $tiffinman->delete();
+        return response()->json(null, 204);
     }
 }

@@ -27,7 +27,9 @@ class CustomerController extends Controller
             'f_name'=> 'required|min:3',
             'l_name'=> 'required|min:3',
             'm_name'=> 'required|min:3',
-            'phone_number' => 'required'
+            'phone_number' => 'required',
+            'address' => 'required',
+            'pincode' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){

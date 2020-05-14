@@ -5,51 +5,52 @@ namespace App\Http\Controllers\Tiffinvala;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TiffinvalaModel;
+use Validator;
+
 class TiffinvalaController extends Controller
 {
-    public function tifinman(){
+    public function tiffinman(){
         return response()->json(TiffinvalaModel::get(),200);
     }
 
-    public function customerById($id){
-        $customer =  TiffinvalaModel::find($id);
-        if(is_null($customer)){
+    public function tiffinmanById($id){
+        $tiffinman =  TiffinvalaModel::find($id);
+        if(is_null($tiffinman)){
             return response()->json(['message' => 'Record Not Found'], 404);
         }
-        return response()->json($customer, 200);
+        return response()->json($tiffinman, 200);
     }
 
-    public function customerSave(Request $request){
+    public function tiffinmanSave(Request $request){
         $rules=[
             'f_name'=> 'required|min:3',
             'l_name'=> 'required|min:3',
             'm_name'=> 'required|min:3',
-            'email' => 'required',
             'phone_number' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
             return response()->json($validator->errors(),400);
         }
-        $customer = TiffinvalaModel::create($request->all());
-        return response()->json($customer, 201);
+        $tiffinman = TiffinvalaModel::create($request->all());
+        return response()->json($tiffinman, 201);
     }
 
-    public function customerUpdate(Request $request, $id){
-        $customer = TiffinvalaModel::find($id);
-        if(is_null($customer)){
+    public function tiffinmanUpdate(Request $request, $id){
+        $tiffinman = TiffinvalaModel::find($id);
+        if(is_null($tiffinman)){
             return response()->json(['message' => 'Record Not Found'], 404);
         }
-        $customer->update($request->all());
-        return response()->json($customer,200);
+        $tiffinman->update($request->all());
+        return response()->json($tiffinman,200);
     }
     
-    public function customerDelete(Request $request, $id){
-        $customer = TiffinvalaModel::find($id);
-        if(is_null($customer)){
+    public function tiffinmanDelete(Request $request, $id){
+        $tiffinman = TiffinvalaModel::find($id);
+        if(is_null($tiffinman)){
             return response()->json(['message' => 'Record Not Found'], 404);
         }
-         $customer->delete();
+         $tiffinman->delete();
         return response()->json(null, 204);
     }
 }

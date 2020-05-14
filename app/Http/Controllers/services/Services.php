@@ -4,6 +4,8 @@ namespace App\Http\Controllers\services;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ServicesModel;
+use Validator;
 
 class Services extends Controller
 {
@@ -14,7 +16,7 @@ class Services extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(ServicesModel::get(),200);
     }
 
     /**
@@ -35,7 +37,19 @@ class Services extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules =[
+            'tiffinvala_id' => 'required',
+            'customer_id' => 'required',
+            'valid_dest' => 'required',
+            'working' => 'required',
+            'service_val' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+        $services = ServicesModel::create($request->all());
+        return response()->json($services, 201);
     }
 
     /**
@@ -46,7 +60,11 @@ class Services extends Controller
      */
     public function show($id)
     {
-        //
+        $services =  ServicesModel::find($service_id);
+        if(is_null($services)){
+            return response()->json(['message' => 'Record Not Found'], 404);
+        }
+        return response()->json($services, 200);
     }
 
     /**
@@ -69,7 +87,12 @@ class Services extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $services = ServicesModel::find($id);
+        if(is_null($services)){
+            return response()->json(['message' => 'Record Not Found'], 404);
+        }
+        $services->update($request->all());
+        return response()->json($services,200);
     }
 
     /**
@@ -80,6 +103,11 @@ class Services extends Controller
      */
     public function destroy($id)
     {
-        //
+        $services = ServicesModel::find($id);
+        if(is_null($services)){
+            return response()->json(['message' => 'Record Not Found'], 404);
+        }
+         $services->delete();
+        return response()->json(null, 204);
     }
 }

@@ -18,6 +18,6 @@ class TiffinvalaModel extends Model
         'marital_status',
         'phone_number',
         'salary_def',
-        'Working_hour_per_day'
+        'number_of_orders'
     ];
 }
