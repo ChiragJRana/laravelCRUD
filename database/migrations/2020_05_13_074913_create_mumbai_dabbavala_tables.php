@@ -35,7 +35,7 @@ class CreateMumbaiDabbavalaTables extends Migration
             $table->string('marital_status',10);
             $table->string('gender',10);
             $table->string('address',199);
-            $table->string('pincode',199);
+            $table->string('pincode',6);
             $table->string('phone_number',10);
             $table->boolean('Present_member');
             $table->engine = 'InnoDB';
@@ -55,8 +55,9 @@ class CreateMumbaiDabbavalaTables extends Migration
             $table->string('gender',10);
             $table->string('marital_status',10);
             $table->string('phone_number',10);
+            $table->string('address',199);
             $table->float('salary_def',10,2)
-                    ->unsigned();
+                    ->unsigned()->default(15000);
             $table->integer('number_of_orders')->default(0);
             $table->engine = 'InnoDB';
         });

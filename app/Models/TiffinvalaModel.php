@@ -17,6 +17,7 @@ class TiffinvalaModel extends Model
         'gender',
         'marital_status',
         'phone_number',
+        'address',
         'salary_def',
         'number_of_orders'
     ];
