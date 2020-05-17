@@ -34,7 +34,7 @@ Route::apiResource('customer', 'Customers\Customer');
 
 // Route::get('tiffinman', 'Tiffinvala\TiffinvalaController@tiffinman');
 Route::get('tiffinman/{phoneNumber}', 'Tiffinvala\TiffinvalaController@tiffinmanByPhone');
-// Route::post('tiffinman', 'Tiffinvala\TiffinvalaController@tiffinmanSave');
+Route::post('tiffinmanlogin', 'Tiffinvala\TiffinvalaController@tiffinmanVerify');
 // Route::put('tiffinman/{id}','Tiffinvala\TiffinvalaController@tiffinmanUpdate');
 // Route::delete('tiffinman/{id}','Tiffinvala\TiffinvalaController@tiffinmanDelete');
 Route::apiResource('tiffinman', 'Tiffinvala\Tiffinvala');
@@ -48,7 +48,7 @@ Route::apiResource('tiffinman', 'Tiffinvala\Tiffinvala');
 // Route::post('services', 'services\ServicesController@servicesSave');
 // Route::put('services/{id}','services\ServicesController@servicesUpdate');
 // Route::delete('services/{id}','services\ServicesController@servicesDelete');
-Route::apiResource('services', 'services\Services');
+// Route::apiResource('services', 'services\Services');
 
 Route::group([
 

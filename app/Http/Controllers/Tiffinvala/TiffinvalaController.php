@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TiffinvalaModel;
 use Validator;
+use Illuminate\Support\Facades\Hash;
 use DB;
 class TiffinvalaController extends Controller
 {
@@ -20,15 +21,14 @@ class TiffinvalaController extends Controller
         }
         return response()->json($tiffinman, 200);
     }
+
 public function tiffinmanByPhone($phoneNumber){
     $tiffinvala = DB::select("select * from tiffinvala_master where phone_number = '$phoneNumber'");
     return response()->json($tiffinvala,200);
 }
-    public function tiffinmanSave(Request $request){
+
+    public function tiffinmanVerify(Request $request){
         $rules=[
-            'f_name'=> 'required|min:3',
-            'l_name'=> 'required|min:3',
-            'm_name'=> 'required|min:3',
             'phone_number' => 'required',
             'password' => 'required|min:10'
         ];
@@ -36,8 +36,15 @@ public function tiffinmanByPhone($phoneNumber){
         if($validator->fails()){
             return response()->json($validator->errors(),400);
         }
-        $tiffinman = TiffinvalaModel::create($request->all());
-        return response()->json($tiffinman, 201);
+
+        $check = DB::select("select password from tiffinvala_master where phone_number = '$request->phone_number'");
+
+        if ($check != null && Hash::check($request->password, $check[0]->password) ){
+            $requiredListofCustomers = DB::select("SELECT f_name, l_name, `address`, phone_number From customer_master WHERE id IN (Select s.customer_id FROM services AS s INNER JOIN tiffinvala_master AS tm ON s.tiffinvala_id = tm.id WHERE tm.phone_number = '$request->phone_number')");
+            return response()->json($requiredListofCustomers, 201);
+        }else{
+            return response()->json(['message' => 'Record not found'],404);
+        }
     }
 
     public function tiffinmanUpdate(Request $request, $id){
