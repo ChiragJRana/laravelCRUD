@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tiffinvala;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TiffinvalaModel;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 class Tiffinvala extends Controller
 {
@@ -46,7 +47,10 @@ class Tiffinvala extends Controller
         if($validator->fails()){
             return response()->json($validator->errors(),400);
         }
-        $tiffinman = TiffinvalaModel::create($request->all());
+
+        $tiffinvalaData = $request->all();
+        $tiffinvalaData['password'] = Hash::make($request->password);
+        $tiffinman = TiffinvalaModel::create($tiffinvalaData);
         return response()->json($tiffinman, 201);
     }
 

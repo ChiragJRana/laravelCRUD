@@ -14,6 +14,7 @@ class CustomerModel extends Model
         'f_name',
         'm_name',
         'email',
+        'password',
         'age',
         'occupation',
         'marital_status',

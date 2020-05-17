@@ -14,6 +14,7 @@ class TiffinvalaModel extends Model
         'f_name',
         'm_name',
         'age',
+        'password',
         'gender',
         'marital_status',
         'phone_number',

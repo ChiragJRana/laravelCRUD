@@ -40,7 +40,7 @@ class Services extends Controller
         $rules =[
             'tiffinvala_id' => 'required',
             'customer_id' => 'required',
-            'valid_dest' => 'required',
+            // 'valid_dest' => 'required',
             'working' => 'required',
             'service_val' => 'required'
         ];

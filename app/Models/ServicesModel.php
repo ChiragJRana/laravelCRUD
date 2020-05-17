@@ -12,7 +12,6 @@ class ServicesModel extends Model
         'service_id',
         'customer_id',
         'tiffinvala_id',
-        'valid_dest',
         'working',
         'service_val'
     ];

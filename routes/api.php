@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Routes for  Customer data
 // ===========================================================================================
 // Route::get('customer', 'Customers\CustomerController@customer');
-// Route::get('customer/{id}', 'Customers\CustomerController@customerById');
+Route::get('customername/{email}', 'Customers\CustomerController@customerByEmail');
 // Route::post('customer', 'Customers\CustomerController@customerSave');
 // Route::put('customer/{id}','Customers\CustomerController@customerUpdate');
 // Route::delete('customer/{id}','Customers\CustomerController@customerDelete');
@@ -33,7 +33,7 @@ Route::apiResource('customer', 'Customers\Customer');
 // ========================================================================================
 
 // Route::get('tiffinman', 'Tiffinvala\TiffinvalaController@tiffinman');
-// Route::get('tiffinman/{id}', 'Tiffinvala\TiffinvalaController@tiffinmanById');
+Route::get('tiffinman/{phoneNumber}', 'Tiffinvala\TiffinvalaController@tiffinmanByPhone');
 // Route::post('tiffinman', 'Tiffinvala\TiffinvalaController@tiffinmanSave');
 // Route::put('tiffinman/{id}','Tiffinvala\TiffinvalaController@tiffinmanUpdate');
 // Route::delete('tiffinman/{id}','Tiffinvala\TiffinvalaController@tiffinmanDelete');
@@ -49,3 +49,18 @@ Route::apiResource('tiffinman', 'Tiffinvala\Tiffinvala');
 // Route::put('services/{id}','services\ServicesController@servicesUpdate');
 // Route::delete('services/{id}','services\ServicesController@servicesDelete');
 Route::apiResource('services', 'services\Services');
+
+Route::group([
+
+    'middleware' => 'api',
+    'namespace' => 'App\Http\Controllers',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
