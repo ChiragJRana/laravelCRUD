@@ -22,9 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Routes for  Customer data
 // ===========================================================================================
 // Route::get('customer', 'Customers\CustomerController@customer');
-Route::get('customername/{email}', 'Customers\CustomerController@customerByEmail');
+Route::post('customervalidate', 'Customers\CustomerController@validateEmail');
 // Route::post('customer', 'Customers\CustomerController@customerSave');
-// Route::put('customer/{id}','Customers\CustomerController@customerUpdate');
+Route::put('customerupdate','Customers\CustomerController@customerUpdate');
 // Route::delete('customer/{id}','Customers\CustomerController@customerDelete');
 Route::apiResource('customer', 'Customers\Customer');
 

@@ -66,7 +66,7 @@ class Customer extends Controller
 
         return response()->json($requestData, 201);
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -100,13 +100,17 @@ class Customer extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         $customer = CustomerModel::find($id);
+        // $email = $request->all()['email'];
+        // $customer = DB::select("select * from customer_master WHERE email = '$email'");
+
         if(is_null($customer)){
             return response()->json(['message' => 'Record Not Found'], 404);
         }
-        $customer->update($request->all());
+        $requestData = $request->all();
+        $customer->update($requestData);
         return response()->json($customer,200);
     }
 
